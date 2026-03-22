@@ -17,10 +17,6 @@ const userSchema=new mongoose.Schema({
     discription:{
         type:String,
     },
-    password:{
-        type:String,
-        required:true
-    },
     role:{
         type:String,
         enum:["student","educator"],
@@ -30,6 +26,16 @@ const userSchema=new mongoose.Schema({
     photoUrl:{
         type:String,
         default:""
+    },
+    resetOtp:{
+        type:String
+    },
+    otpExpires:{
+        type:Date
+    },
+    isOtpVerified :{
+        type:Boolean,
+        default:false
     },
     enrolledCourses:[{
         type:mongoose.Schema.Types.ObjectId,

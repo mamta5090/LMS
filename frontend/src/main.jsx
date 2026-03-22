@@ -1,11 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import * as THREE from 'three';
 import App from './App.jsx'
+import { store } from './redux/store';
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux';
 
 createRoot(document.getElementById('root')).render(
- <BrowserRouter>
-    <App />
+ <BrowserRouter >
+ <Provider store={store}>
+ <App />
+ </Provider>
+   
   </BrowserRouter>
 )
