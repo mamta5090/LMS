@@ -12,12 +12,11 @@ const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [show, setShow] = useState(false);       // profile dropdown
-  const [showHam, setShowHam] = useState(false); // mobile menu
+  const [show, setShow] = useState(false);      
+  const [showHam, setShowHam] = useState(false); 
 
   const userData = useSelector((state) => state.user.userData);
 
-  // ✅ Logout
   const handleLogout = async () => {
     try {
       await axios.post(`${serverUrl}/api/auth/logout`, {}, { withCredentials: true });
@@ -29,7 +28,6 @@ const Nav = () => {
     }
   };
 
-  // ✅ Get current user
   const getCurrentUser = async () => {
     try {
       const res = await axios.get(`${serverUrl}/api/user/getcurrentuser`, {
@@ -97,7 +95,7 @@ const Nav = () => {
             {/* Dropdown */}
             {show && (
         <div className='absolute top-[110%] right-[15%] flex items-center flex-col justify-center gap-2 text-[16px] rounded-md bg-white px-[15px] py-[10px] border border-black shadow-md'>
-          <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>
+          <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600' onClick={()=>navigate("/profile")}>
             My Profile
           </span>
           <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>

@@ -6,6 +6,8 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import { useSelector } from 'react-redux';
 import Forget from './pages/Forget'
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 export const serverUrl="http://localhost:8000";
 
@@ -21,7 +23,8 @@ const App = () => {
     <Route path="/login" element={!userData? <Login />: <Navigate to="/" />} />
     <Route path="/signup" element={!userData? <SignUp/> : <Navigate to={<Login/>}/>} />
     <Route path="/forget" element={<Forget/>} />
- 
+      <Route path="/profile" element={<Profile/>} />
+            <Route path="/editprofile" element={<EditProfile/>} />
    </Routes>
    </>
   )
