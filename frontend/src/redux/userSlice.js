@@ -12,8 +12,7 @@
 //     }
 // })
 
-// export const {setUserData}=userSlice.actions;
-// export default userSlice.reducer;
+
 
 import { createSlice } from "@reduxjs/toolkit";
 const userSlice=createSlice({

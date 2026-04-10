@@ -15,9 +15,6 @@ export const signup=async(req,res)=>{
         if(!validator.isEmail(email)){
             return res.status(400).json({message:"please provide a valid email"})
         }
-        // if(password.length<8){
-        //     return res.status(400).json({message:"password must be at least 8 characters long"})
-        // }
         const hashPassword=await bcrypt.hash(password,10);
            const user=await User.create({
             name,

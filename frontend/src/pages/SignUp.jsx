@@ -143,7 +143,7 @@ const googleSignUp = async () => {
 
           <button 
             type="submit" 
-            className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors"
+            className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors cursor-pointer"
           >
             Sign Up
           </button>

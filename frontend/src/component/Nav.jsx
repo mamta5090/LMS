@@ -39,9 +39,25 @@ const Nav = () => {
     }
   };
 
-  useEffect(() => {
-    if (!userData) getCurrentUser();
-  }, []);
+ useEffect(() => {
+  let isMounted = true;
+  
+  const fetchUser = async () => {
+    if (!userData) {
+      try {
+        const res = await axios.get(`${serverUrl}/api/user/getcurrentuser`, {
+          withCredentials: true,
+        });
+        if (isMounted) dispatch(setUserData(res.data.user));
+      } catch (err) {
+        if (isMounted) dispatch(setUserData(null));
+      }
+    }
+  };
+
+  fetchUser();
+  return () => { isMounted = false; }; // Prevent state updates on unmounted components
+}, [dispatch, serverUrl, userData]); // Added dependencies
 
   return (
     <div className="w-full h-[70px] fixed top-0 px-5 flex items-center justify-between bg-white/80 backdrop-blur-md shadow-sm z-50">
@@ -67,12 +83,21 @@ const Nav = () => {
         {userData ? (
           <>
             {/* Profile Circle */}
-            <div
-              className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold cursor-pointer"
-              onClick={() => setShow(!show)}
-            >
-              {userData?.name?.charAt(0).toUpperCase()}
-            </div>
+           {/* Profile Circle */}
+<div
+  className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold cursor-pointer overflow-hidden border border-gray-200"
+  onClick={() => setShow(!show)}
+>
+  {userData?.photoUrl ? (
+    <img 
+      src={userData.photoUrl} 
+      alt="Profile" 
+      className="w-full h-full object-cover" 
+    />
+  ) : (
+    <span>{userData?.name?.charAt(0).toUpperCase()}</span>
+  )}
+</div>
 
             {/* Dashboard */}
             {userData.role === "educator" && (

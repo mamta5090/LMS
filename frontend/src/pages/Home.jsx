@@ -2,6 +2,7 @@ import React from 'react';
 import Nav from '../component/Nav';
 import home from '../assets/home1.jpg';
 import Logos from './Logos';
+import ExploreCourses from '../component/ExploreCourses';
 
 const Home = () => {
   return (
@@ -54,6 +55,7 @@ const Home = () => {
 
         </div>
         <Logos/>
+        <ExploreCourses/>
       </div>
     </div>
   );
