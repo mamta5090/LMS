@@ -9,6 +9,7 @@ const courseSlice = createSlice({
     setCourseData: (state, action) => {
       state.createCourseData = action.payload;
     },
+     
   },
 });
 

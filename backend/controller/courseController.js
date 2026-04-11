@@ -42,24 +42,27 @@ export const editCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
         const { title, subtitle, description, category, level, isPublished, price } = req.body;
-        
-        let updateData = { title, subtitle, description, category, level, isPublished, price };
-
+let updateData = {
+    title,
+    subtitle,
+    description,
+    category,
+    level,
+    price,
+    isPublished: isPublished === "true" || isPublished === true
+};
        if (req.file) {
     const uploadResponse = await uploadOnCloudinary(req.file.path);
     updateData.thumbnail = uploadResponse;
 }
-
         const course = await Course.findByIdAndUpdate(
             courseId, 
             updateData, 
             { new: true, runValidators: true }
         );
-
         if (!course) {
             return res.status(404).json({ message: "Course not found" });
         }
-
         res.status(200).json(course);
     } catch (error) {
         console.error(error);

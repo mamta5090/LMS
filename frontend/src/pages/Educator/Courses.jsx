@@ -15,7 +15,6 @@ const creatorCourseData = useSelector(
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
- 
   useEffect(() => {
     const getCourses = async () => {
       try {
@@ -88,14 +87,14 @@ const creatorCourseData = useSelector(
                     </td>
 
                     {/* Price */}
-                    <td className='border px-4 py-2'>
-                      {course?.price? <td className='px-4 py-3'>{course?.price}</td> : <td className='px-4 py-3'>0.00</td>}
-                    </td>
+                <td className='border px-4 py-2'>
+  {course?.price || "0.00"}
+</td>
 
                     {/* Status */}
                     <td className='border px-4 py-2'>
                       <span className={`px-3 py-1 rounded-full text-xs ${course.isPublished ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-                        {course.isPublished ? "Published" : "Draft"}
+                        {course.isPublished ? "Published" : "UnPublished"}
                       </span>
                     </td>
 
@@ -141,7 +140,7 @@ const creatorCourseData = useSelector(
                       {course.title}
                     </h2>
                     <p className="text-sm text-gray-500">
-                     {course.isPublished ? "Published" : "Draft"}
+                     {course.isPublished ? "Published" : "UnPublished"}
                     </p>
                   </div>
                 </div>
@@ -150,13 +149,13 @@ const creatorCourseData = useSelector(
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Status:</span>
                    <span className={`px-3 py-1 rounded-full text-xs ${course.isPublished ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-                        {course.isPublished ? "Published" : "Draft"}
+                        {course.isPublished ? "Published" : "UnPublished"}
                       </span>
                 </div>
 
                 {/* Actions */}
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                  <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 cursor-pointer" onClick={() => navigate(`/editcourse/${course?._id}`)}>
                     Edit
                   </button>
                   <button className="flex-1 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">

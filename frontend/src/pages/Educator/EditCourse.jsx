@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { serverUrl } from "../../App";
 import { toast } from "react-toastify";
+import { FaArrowLeft } from "react-icons/fa";
 
 const EditCourse = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const EditCourse = () => {
  const thumb = useRef();
   const getCourseById=async()=>{
     try{
-      const result=await axios.get(`${serverUrl}/api/course//getcourse/${courseId}`,{withCredentials:true});
+      const result=await axios.get(`${serverUrl}/api/course/getcourse/${courseId}`,{withCredentials:true});
       setSelectCourseData(result.data);
     } catch (error) {
       console.error("Error fetching course:", error);
@@ -62,7 +63,7 @@ const EditCourse = () => {
     formData.append("category", category);
     formData.append("level", level);
     formData.append("price", price);
-    formData.append("isPublished", published);
+    formData.append("isPublished", published ? "true" : "false");
     if (backendImage) {
       formData.append("thumbnail", backendImage);
     }
@@ -73,36 +74,53 @@ const EditCourse = () => {
       navigate("/courses");
     }catch(error){
       console.error("Error updating course:", error);
-      toast.error("error.data.response.message || 'Failed to update course'");
+      toast.error("Failed to update course");
     }
   }
 
   return (
     <div className="min-h-screen bg-gray-200 p-5 py-2">
       <form
-        onSubmit={getCourseById}
+        onSubmit={handleEditCourse}
         className="max-w-4xl mx-auto bg-white p-6 py-5 rounded shadow"
       >
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-bold">← Add Course Details</h2>
-          <button
-            type="button"
-            className="bg-black text-white px-3 py-1 rounded"
-          >
-            Go to lectures
-          </button>
-        </div>
+   <div className="flex items-center justify-between mb-4">
+
+  {/* Left side (Back + Title) */}
+  <div className="flex items-center gap-3">
+    <button 
+      onClick={() => navigate(-1)} 
+      className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+      aria-label="Go back"
+    >
+      <FaArrowLeft className="text-gray-600" />
+    </button>
+
+    <h2 className="text-lg font-bold">Edit Course Details</h2>
+  </div>
+
+  {/* Right side */}
+  <button
+    type="button"
+    className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+  >
+    Go to lectures
+  </button>
+
+</div>
 
         {/* Buttons */}
         <div className="mb-2 space-x-2">
-          <button
-            type="button"
-            className="bg-green-200 px-3 py-1 rounded"
-            onClick={() => setPublished(!published)}
-          >
-            {published ? "Unpublish" : "Publish"}
-          </button>
+         <button
+  type="button"
+  className={`px-3 py-1 rounded ${
+    published ? "bg-red-200" : "bg-green-200"
+  }`}
+  onClick={() => setPublished(!published)}
+>
+  {published ? "Unpublish Course" : "Publish Course"}
+</button>
 
           <button
             type="button"
@@ -213,13 +231,12 @@ const EditCourse = () => {
               Cancel
             </button>
 
-            <button
-              type="submit"
-              className="bg-black text-white px-4 py-1 rounded"
-              onClick={handleEditCourse}
-            >
-              Save
-            </button>
+           <button
+  type="submit"
+  className="bg-black text-white px-4 py-1 rounded"
+>
+  Save
+</button>
           </div>
         </div>
       </form>
