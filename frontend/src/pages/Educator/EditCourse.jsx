@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { FaArrowLeft } from "react-icons/fa";
 
 const EditCourse = () => {
+
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -78,6 +79,18 @@ const EditCourse = () => {
     }
   }
 
+  const handleRemoveCourse=async()=>{
+    try {
+      const result=await axios.delete(`${serverUrl}/api/course/remove/${courseId}`, {withCredentials:true});
+      console.log("Course removed:", result.data);
+      toast.success("Course removed successfully");
+      navigate("/courses");
+    } catch (error) {
+      console.error("Error removing course:", error);
+      toast.error(error.response.data.message);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-200 p-5 py-2">
       <form
@@ -103,7 +116,7 @@ const EditCourse = () => {
   {/* Right side */}
   <button
     type="button"
-    className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+    className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 cursor-pointer"
   >
     Go to lectures
   </button>
@@ -111,10 +124,10 @@ const EditCourse = () => {
 </div>
 
         {/* Buttons */}
-        <div className="mb-2 space-x-2">
+        <div className="mb-2 space-x-2 cursor-pointer">
          <button
   type="button"
-  className={`px-3 py-1 rounded ${
+  className={`px-3 py-1 rounded cursor-pointer ${
     published ? "bg-red-200" : "bg-green-200"
   }`}
   onClick={() => setPublished(!published)}
@@ -124,7 +137,8 @@ const EditCourse = () => {
 
           <button
             type="button"
-            className="bg-red-500 text-white px-3 py-1 rounded"
+            className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer"
+            onClick={handleRemoveCourse}
           >
             Remove Course
           </button>
@@ -226,14 +240,14 @@ const EditCourse = () => {
           <div className="space-x-2">
             <button
               type="button"
-              className="border px-4 py-1 rounded"
+              className="border px-4 py-1 rounded cursor-pointer"
             >
               Cancel
             </button>
 
            <button
   type="submit"
-  className="bg-black text-white px-4 py-1 rounded"
+  className="bg-black text-white px-4 py-1 rounded cursor-pointer"
 >
   Save
 </button>

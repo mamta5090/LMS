@@ -5,7 +5,7 @@ import { serverUrl } from '../../App';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import setCourseData from '../../redux/courseSlice.js';
+import  {setCreatorCourseData}  from '../../redux/courseSlice.js';
 
 const CreateCourses = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const CreateCourses = () => {
     setLoading(true);
     try {
         const result=await axios.post(`${serverUrl}/api/course/create`,{title,category},{withCredentials:true});
-        dispatch(setCourseData(result.data.course)); 
+        dispatch(setCreatorCourseData(result.data.course)); 
                 toast.success("Course Created Successfully");// Update Redux with the new course
         navigate("/courses");
         console.log(result.data.course);

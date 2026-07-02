@@ -3,6 +3,7 @@ import Nav from '../component/Nav';
 import home from '../assets/home1.jpg';
 import Logos from './Logos';
 import ExploreCourses from '../component/ExploreCourses';
+import CardPage from '../component/CardPage.jsx';
 
 const Home = () => {
   return (
@@ -56,6 +57,7 @@ const Home = () => {
         </div>
         <Logos/>
         <ExploreCourses/>
+        <CardPage/>
       </div>
     </div>
   );

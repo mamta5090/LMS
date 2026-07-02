@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { serverUrl } from '../App';
 import { setUserData } from '../redux/userSlice';
-import logo1 from '../assets/logo1.jpg';
+import logo1 from '../assets/logo.jpg';
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import logo1 from '../assets/logo1.jpg';
+import logo1 from '../assets/logo.jpg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import { serverUrl } from '../App';

@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import home1 from '../../assets/home1.jpg';
 import axios from 'axios';
 import { serverUrl } from '../../App';
-import  {setCourseData}  from '../../redux/courseSlice.js';
+import  { setCreatorCourseData}  from '../../redux/courseSlice.js';
 
 const Courses = () => {
   const userData = useSelector(state => state.user.user);
 const creatorCourseData = useSelector(
-  state => state.course.createCourseData
+  state => state.course.creatorCourseData
 );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const creatorCourseData = useSelector(
           { withCredentials: true }
         );
 
-        dispatch(setCourseData(result.data));
+        dispatch(setCreatorCourseData(result.data));
       } catch (err) {
         console.error("Error fetching courses:", err);
       }
