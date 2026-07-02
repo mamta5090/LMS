@@ -27,7 +27,7 @@ export const updateProfile = async (req, res) => {
             updateData.discription = description; 
         }
         if (req.file) {
-            const imageUrl = await uploadOnClodinary(req.file.path);   
+            const imageUrl = await uploadOnCloudinary(req.file.path);   
             if (imageUrl) {
                 updateData.photoUrl = imageUrl; 
             }

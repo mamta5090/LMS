@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
 import genToken from "../config/token.js";
-import sendMail from "../config/sendMail.js";
+// import sendMail from "../config/sendMail.js";
 
 export const signup=async(req,res)=>{
     try{
@@ -94,7 +94,7 @@ export const sendOtp = async (req, res) => {
     user.isOtpVerified = false;
     await user.save();
     console.log("STEP 4");
-    await sendMail(email, otp); 
+    // await sendMail(email, otp); 
     console.log("STEP 5");
     return res.status(200).json({ message: "OTP sent successfully" });
   } catch (error) {

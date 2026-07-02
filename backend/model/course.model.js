@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const courseSchema=new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true
@@ -17,7 +17,7 @@ const courseSchema=new mongoose.Schema({
     },
     level:{
         type:String,
-        enum:["Beginner","Intermediate","Advanced"]
+        enum:['Beginner','Intermediate','Advanced']
     },
     price:{
         type:Number
@@ -34,18 +34,19 @@ const courseSchema=new mongoose.Schema({
         ref:"Lecture"
     }],
     creator:{
-        type:mongoose.Schema.Types.ObjectId,
+         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
     isPublished:{
-        type:Boolean,
-        default:false
+     type:Boolean,
+     default:false
     },
-    reviews:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Review"
-    }]
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+        }],
 },{timestamps:true})
 
-const Course=mongoose.model("Course",courseSchema)
+const Course = mongoose.model("Course",courseSchema)
+
 export default Course
