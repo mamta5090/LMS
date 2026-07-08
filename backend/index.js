@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import userRouter from "./route/user.router.js"
 import courseRouter from "./route/courseRouter.js"
-// import paymentRouter from "./route/paymentRoute.js"
+import paymentRouter from "./route/paymentRoute.js"
 import aiRouter from "./route/aiRoute.js"
 import reviewRouter from "./route/reviewRoute.js"
 dotenv.config()
@@ -22,7 +22,7 @@ app.use(cors({
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
 app.use("/api/course", courseRouter)
-// app.use("/api/payment", paymentRouter)
+app.use("/api/payment", paymentRouter)
 app.use("/api/ai", aiRouter)
 app.use("/api/review", reviewRouter)
 

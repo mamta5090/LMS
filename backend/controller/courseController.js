@@ -52,7 +52,7 @@ const updateData = {
 if (subtitle) updateData.subtitle = subtitle;
 if (description) updateData.description = description;
 if (level) updateData.level = level;
-if (price) updateData.price = Number(price);
+if (price !== undefined && price !== "") updateData.price = Number(price);
        if (req.file) {
     const uploadResponse = await uploadOnCloudinary(req.file.path);
     updateData.thumbnail = uploadResponse;

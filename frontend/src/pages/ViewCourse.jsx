@@ -129,17 +129,33 @@ console.log("Average Rating:", avgRating);
 }, [creatorData, courseData]);
 
  
+const enrollDirectly = async (courseId, userId) => {
+  try {
+    const res = await axios.post(serverUrl + "/api/payment/verify-payment", {
+      courseId, userId
+    }, { withCredentials: true });
+    setIsEnrolled(true);
+    toast.success(res.data.message);
+  } catch (err) {
+    toast.error("Enrollment failed.");
+    console.error("Direct Enroll Error:", err);
+  }
+};
+
 const handleEnroll = async (courseId, userId) => {
   try {
-    // 1. Create Order
     const orderData = await axios.post(serverUrl + "/api/payment/create-order", {
       courseId,
       userId
     } , {withCredentials:true});
-    console.log(orderData)
+
+    if (orderData.data.id === "free") {
+      await enrollDirectly(courseId, userId);
+      return;
+    }
 
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // from .env
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: orderData.data.amount,
       currency: "INR",
       name: "Virtual Courses",
@@ -180,18 +196,20 @@ setIsEnrolled(true)
         <div className="flex flex-col md:flex-row gap-6 ">
              
           {/* Thumbnail */}
-          <div className="w-full md:w-1/2">
-             <FaArrowLeftLong  className='text-[black] w-[22px] h-[22px] cursor-pointer' onClick={()=>navigate("/")}/>
-            {selectedCourseData?.thumbnail ? <img
-              src={selectedCourseData?.thumbnail}
-              alt="Course Thumbnail"
-              className="rounded-xl w-full object-cover"
-            /> :  <img
-              src={img}
-              alt="Course Thumbnail"
-              className="rounded-xl  w-full  object-cover"
-            /> }
-          </div>
+      <div className="w-full md:w-1/2">
+  <FaArrowLeftLong
+    className="text-black w-6 h-6 cursor-pointer mb-4"
+    onClick={() => navigate("/")}
+  />
+
+  <div className="w-full h-[320px] md:h-[380px] rounded-xl overflow-hidden shadow-lg">
+    <img
+      src={selectedCourseData?.thumbnail || img}
+      alt="Course Thumbnail"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
 
           {/* Course Info */}
           <div className="flex-1 space-y-2 mt-[20px]">
@@ -337,35 +355,95 @@ setIsEnrolled(true)
     </div>
 
         {/* Instructor Info */}
-        <div className="flex items-center gap-4 pt-4 border-t ">
-          {creatorData?.photoUrl ?<img
-            src={creatorData?.photoUrl}
-            alt="Instructor"
-            className="w-16 h-16 rounded-full object-cover"
-          />: <img
-            src={img}
-            alt="Instructor"
-            className="w-16 h-16 rounded-full object-cover"
-          />
-          }
-          <div>
-            <h3 className="text-lg font-semibold">{creatorData?.name}</h3>
-            <p className="md:text-sm text-gray-600 text-[10px] ">{creatorData?.description}</p>
-            <p className="md:text-sm text-gray-600 text-[10px] ">{creatorData?.email}</p>
-            
-          </div>
+       {/* Instructor Section */}
+<div className="mt-10 bg-white border rounded-2xl shadow-md p-6">
+  <h2 className="text-2xl font-bold mb-6">Meet Your Instructor</h2>
+
+  <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+    <img
+      src={creatorData?.photoUrl || img}
+      alt="Instructor"
+      className="w-28 h-28 rounded-full object-cover border-4 border-gray-200 shadow-lg"
+    />
+
+    <div className="flex-1 text-center md:text-left">
+      <h3 className="text-2xl font-bold text-gray-800">
+        {creatorData?.name}
+      </h3>
+
+      <p className="text-gray-500 mt-1">
+        Course Instructor
+      </p>
+
+      <p className="text-gray-700 mt-4 leading-7">
+        {creatorData?.description ||
+          "Passionate educator helping students learn modern web development and build real-world projects."}
+      </p>
+
+      <div className="mt-4 flex flex-col sm:flex-row gap-3">
+        <div className="bg-gray-100 px-4 py-2 rounded-lg">
+          <p className="text-sm text-gray-500">Email</p>
+          <p className="font-medium text-gray-800 break-all">
+            {creatorData?.email}
+          </p>
         </div>
-        <div>
-          <p className='text-xl font-semibold mb-2'>Other Published Courses by the Educator -</p>
-        <div className='w-full transition-all duration-300 py-[20px]   flex items-start justify-center lg:justify-start flex-wrap gap-6 lg:px-[80px] '>
-          
-            {
-                selectedCreatorCourse?.map((item,index)=>(
-                    <Card key={index} thumbnail={item.thumbnail} title={item.title} id={item._id} price={item.price} category={item.category}/>
-                ))
-            }
+
+        <div className="bg-gray-100 px-4 py-2 rounded-lg">
+          <p className="text-sm text-gray-500">Published Courses</p>
+          <p className="font-bold text-lg text-black">
+            {selectedCreatorCourse?.length}
+          </p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+{/* Other Courses */}
+<div className="mt-10">
+  <div className="flex items-center justify-between mb-6">
+    <div>
+      <h2 className="text-2xl font-bold text-gray-800">
+        More Courses by {creatorData?.name}
+      </h2>
+      <p className="text-gray-500 text-sm mt-1">
+        Explore other courses published by this educator.
+      </p>
+    </div>
+
+    {selectedCreatorCourse?.length > 0 && (
+      <button
+        onClick={() =>
+          navigate(`/viewcourse/${selectedCreatorCourse[0]._id}`)
+        }
+        className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition"
+      >
+        View Course
+      </button>
+    )}
+  </div>
+
+  {selectedCreatorCourse?.length > 0 ? (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {selectedCreatorCourse.map((item, index) => (
+        <Card
+          key={index}
+          thumbnail={item.thumbnail}
+          title={item.title}
+          id={item._id}
+          price={item.price}
+          category={item.category}
+        />
+      ))}
+    </div>
+  ) : (
+    <div className="bg-gray-50 border rounded-xl p-8 text-center">
+      <p className="text-gray-500">
+        No other courses published by this educator.
+      </p>
+    </div>
+  )}
+</div>
     </div>
     </div>
     </div>
