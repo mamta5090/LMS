@@ -42,12 +42,15 @@ export const verifyPayment = async (req, res) => {
 
         // Direct enrollment (free course) when no razorpay_order_id
         if (!razorpay_order_id) {
+          if (!userId) return res.status(400).json({ message: "User ID is required" });
           const user = await User.findById(userId);
+          if (!user) return res.status(404).json({ message: "User not found" });
           if (!user.enrolledCourses.includes(courseId)) {
             user.enrolledCourses.push(courseId);
             await user.save();
           }
           const course = await Course.findById(courseId).populate("lectures");
+          if (!course) return res.status(404).json({ message: "Course not found" });
           if (!course.enrolledStudents.includes(userId)) {
             course.enrolledStudents.push(userId);
             await course.save();

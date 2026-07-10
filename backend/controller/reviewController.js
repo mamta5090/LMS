@@ -10,9 +10,15 @@ export const addReview = async (req, res) => {
     const course = await Course.findById(courseId);
     if (!course) return res.status(404).json({ message: "Course not found" });
 
-    // Optional: prevent duplicate review by same user
-    const alreadyReviewed = await Review.findOne({ course: courseId, user: userId });
-    if (alreadyReviewed) return res.status(400).json({ message: "You have already reviewed this course" });
+    // Update existing review or create new one
+    const existingReview = await Review.findOne({ course: courseId, user: userId });
+    if (existingReview) {
+      existingReview.rating = rating;
+      existingReview.comment = comment;
+      existingReview.reviewedAt = Date.now();
+      await existingReview.save();
+      return res.status(200).json(existingReview);
+    }
 
     const review = new Review({
       course: courseId,

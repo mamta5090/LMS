@@ -5,6 +5,7 @@ import Logos from './Logos';
 import ExploreCourses from '../component/ExploreCourses';
 import CardPage from '../component/CardPage.jsx';
 import About from '../component/About';
+import ReviewPage from '../component/ReviewPage';
 import Footer from '../component/Footer';
 const Home = () => {
   return (
@@ -60,6 +61,7 @@ const Home = () => {
         <ExploreCourses/>
         <CardPage/>
         <About/>
+        <ReviewPage/>
         <Footer/>
       </div>
     </div>
