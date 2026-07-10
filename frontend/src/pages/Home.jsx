@@ -4,7 +4,8 @@ import home from '../assets/home1.jpg';
 import Logos from './Logos';
 import ExploreCourses from '../component/ExploreCourses';
 import CardPage from '../component/CardPage.jsx';
-
+import About from '../component/About';
+import Footer from '../component/Footer';
 const Home = () => {
   return (
     <div className='w-full min-h-screen  relative'>
@@ -58,6 +59,8 @@ const Home = () => {
         <Logos/>
         <ExploreCourses/>
         <CardPage/>
+        <About/>
+        <Footer/>
       </div>
     </div>
   );
