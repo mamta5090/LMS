@@ -7,7 +7,9 @@ import CardPage from '../component/CardPage.jsx';
 import About from '../component/About';
 import ReviewPage from '../component/ReviewPage';
 import Footer from '../component/Footer';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className='w-full min-h-screen  relative'>
       {/* Navigation - Ensure it sits on top */}
@@ -48,10 +50,10 @@ const Home = () => {
 
           {/* Action Buttons */}
           <div className='mt-10 flex flex-wrap items-center justify-center gap-4'>
-            <button className='px-8 py-3 bg-white text-black font-semibold rounded-md hover:bg-gray-200 transition-all cursor-pointer'>
+            <button className='px-8 py-3 bg-white text-black font-semibold rounded-md hover:bg-gray-200 transition-all cursor-pointer' onClick={()=>navigate("/courses")}>
               View All Courses
             </button>
-            <button className='px-8 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white/10 transition-all cursor-pointer'>
+            <button className='px-8 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white/10 transition-all cursor-pointer' onClick={()=>navigate("/allcourses")}>
               Search With AI
             </button>
           </div>

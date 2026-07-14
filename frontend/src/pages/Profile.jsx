@@ -13,7 +13,7 @@ const Profile = () => {
         
         {/* Back Button */}
         <button 
-          onClick={() => navigate(-1)} 
+          onClick={() => navigate("/")} 
           className='absolute top-8 left-8 p-2 rounded-full hover:bg-gray-100 transition-colors'
           aria-label="Go back"
         >

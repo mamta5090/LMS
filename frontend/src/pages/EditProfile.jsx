@@ -80,7 +80,7 @@ const EditProfile = () => {
         <div className="flex items-center justify-center mb-8">
           <button 
             type="button"
-            onClick={() => navigate(-1)} 
+            onClick={() => navigate("/")} 
             className='absolute left-8 p-2 rounded-full hover:bg-gray-100 transition-colors'
           >
             <FaArrowLeft className='text-gray-900 text-xl' />

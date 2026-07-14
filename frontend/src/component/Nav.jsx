@@ -80,6 +80,14 @@ const Nav = () => {
       {/* 💻 Desktop Menu */}
       <div className="hidden lg:flex items-center gap-4 relative">
 
+        {/* Page Links */}
+        <Link to="/" className="text-sm font-medium hover:text-gray-600 transition-colors">Home</Link>
+        <Link to="/about" className="text-sm font-medium hover:text-gray-600 transition-colors">About</Link>
+        <Link to="/allcourses" className="text-sm font-medium hover:text-gray-600 transition-colors">All Courses</Link>
+        {userData?.role === "educator" && (
+          <Link to="/createcourses" className="text-sm font-medium hover:text-gray-600 transition-colors">Create Course</Link>
+        )}
+
         {userData ? (
           <>
             {/* Profile Circle */}
@@ -123,7 +131,7 @@ const Nav = () => {
           <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600' onClick={()=>navigate("/profile")}>
             My Profile
           </span>
-          <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>
+          <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600' onClick={()=>navigate("/courses")}>
             My Courses
           </span>
         </div>
@@ -154,6 +162,38 @@ const Nav = () => {
   >
     ✕
   </button>
+
+  {/* Page Links */}
+  <Link
+    to="/"
+    className="text-white text-lg hover:underline"
+    onClick={() => setShowHam(false)}
+  >
+    Home
+  </Link>
+  <Link
+    to="/about"
+    className="text-white text-lg hover:underline"
+    onClick={() => setShowHam(false)}
+  >
+    About
+  </Link>
+  <Link
+    to="/allcourses"
+    className="text-white text-lg hover:underline"
+    onClick={() => setShowHam(false)}
+  >
+    All Courses
+  </Link>
+  {userData?.role === "educator" && (
+    <Link
+      to="/createcourses"
+      className="text-white text-lg hover:underline"
+      onClick={() => setShowHam(false)}
+    >
+      Create Course
+    </Link>
+  )}
 
   {userData ? (
     <>

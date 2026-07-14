@@ -38,7 +38,7 @@ const CreateCourses = () => {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <FaArrowLeft 
-          onClick={() => navigate(-1)} 
+          onClick={() => navigate("/")} 
           className="text-xl cursor-pointer" 
         />
         <h1 className="text-2xl font-bold text-gray-800">
@@ -109,7 +109,7 @@ const CreateCourses = () => {
 
             <button
               type="button"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/")}
               className="flex-1 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 transition"
             >
               Cancel

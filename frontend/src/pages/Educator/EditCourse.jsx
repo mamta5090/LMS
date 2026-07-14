@@ -103,7 +103,7 @@ const EditCourse = () => {
   {/* Left side (Back + Title) */}
   <div className="flex items-center gap-3">
     <button 
-      onClick={() => navigate(-1)} 
+      onClick={() => navigate("/")} 
       className="p-2 rounded-full hover:bg-gray-100 transition-colors"
       aria-label="Go back"
     >

@@ -34,7 +34,7 @@ const Dashboard = () => {
 
         {/* 🔹 Back Button */}
         <FaArrowLeft 
-          onClick={() => navigate(-1)} 
+          onClick={() => navigate("/")} 
           className='text-gray-900 text-xl cursor-pointer' 
         />
 
@@ -73,7 +73,7 @@ const Dashboard = () => {
             {/* Button */}
             <button
               className='mt-3 px-4 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800'
-              onClick={() => navigate("/courses")}
+              onClick={() => navigate("/createcourse")}
             >
               Create Courses
             </button>

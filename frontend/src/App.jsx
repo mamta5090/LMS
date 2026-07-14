@@ -24,9 +24,10 @@ import ScrollToTop from './component/ScrollToTop'
 import EnrolledCourse from './pages/EnrolledCourse'
 import ViewLecture from './pages/ViewLecture'
 import SearchWithAi from './pages/SearchWithAi'
+import AboutPage from './pages/AboutPage'
 import getAllReviews from './customHooks/getAllReviews'
 
-export const serverUrl = "http://localhost:8000"
+//export const serverUrl = import.meta.env.VITE_API_URL || "http://localhost:8000"
 
 function App() {
   
@@ -43,6 +44,7 @@ function App() {
       <ScrollToTop/>
       <Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path='/about' element={<AboutPage/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={!userData?<SignUp/>:<Navigate to={"/"}/>}/>
         <Route path='/profile' element={userData?<Profile/>:<Navigate to={"/signup"}/>}/>

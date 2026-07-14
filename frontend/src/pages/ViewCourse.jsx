@@ -414,9 +414,10 @@ setIsEnrolled(true)
     {selectedCreatorCourse?.length > 0 && (
       <button
         onClick={() =>
-          navigate(`/viewcourse/${selectedCreatorCourse[0]._id}`)
+          // navigate(`/viewcourse/${selectedCreatorCourse[0]._id}`)
+          navigate("/courses")
         }
-        className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition"
+        className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition cursor-pointer"
       >
         View Course
       </button>
