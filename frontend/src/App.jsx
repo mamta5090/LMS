@@ -27,7 +27,7 @@ import SearchWithAi from './pages/SearchWithAi'
 import AboutPage from './pages/AboutPage'
 import getAllReviews from './customHooks/getAllReviews'
 
-//export const serverUrl = import.meta.env.VITE_API_URL || "http://localhost:8000"
+export const serverUrl = import.meta.env.VITE_API_URL || "http://localhost:8000"
 
 function App() {
   
