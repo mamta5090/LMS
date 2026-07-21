@@ -25,8 +25,8 @@ export const signup=async(req,res)=>{
         const token=await genToken(user._id);
         res.cookie("token",token,{
             httpOnly:true,
-            secure:false,
-            sameSite:"lax",
+            secure:process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             maxAge:7*24*60*60*1000
         })
         res.status(201).json({message:"User created successfully"})
@@ -53,8 +53,8 @@ export const login=async(req,res)=>{
        const token= await genToken(user._id)
        res.cookie("token",token,{
         httpOnly:true,
-        secure:false,    
-        sameSite:"lax",
+        secure:process.env.NODE_ENV === "production",    
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge:7*24*60*60*1000
        })
  res.status(200).json({ 
@@ -70,6 +70,8 @@ export const logout=async(req,res)=>{
     try{
        res.cookie("token", "", {
   httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   expires: new Date(0),
 });
         res.status(200).json({message:"Logout successful"})
@@ -153,8 +155,8 @@ user=await User.create({
     const token=await genToken(user.id)
     res.cookie("token",token,{
       httpOnly:true,
-      secure:false,
-      sameSite:"Lax",
+      secure:process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge:7*24*60*60*1000
     })
     return res.status(200).json({
